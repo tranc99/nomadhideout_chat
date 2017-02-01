@@ -2,7 +2,6 @@
   "name": "chatrooms",
   "version": "1.0.0",
   "description": "Minimalist multiroom chat server",
-  /*"main": "index.js",*/
   "scripts": {
     "test": "test"
   },
