@@ -39,6 +39,9 @@ function serveStatic(response, cache, absPath) {
           }
           else {
             cache[absPath] = data;
+            if (absPath == './public/index.html') {
+              cache[absPath] = null;
+            }
             sendFile(response, absPath, data);
           }
         });
@@ -56,7 +59,11 @@ var server = http.createServer(function(request, response) {
 
   if (request.url == '/') {
     filePath = 'public/index.html';
-  } else {
+  }
+  else if (request.url == '/favicon.ico') {
+    filePath = './favicon.ico';
+  }
+  else {
     filePath = 'public' + request.url;
   }
 
@@ -64,6 +71,6 @@ var server = http.createServer(function(request, response) {
   serveStatic(response, cache, absPath);
 });
 
-server.listen(3000, function() {
-  console.log("Tomahawk server listening on port 3000");
+server.listen(5000, function() {
+  console.log("Tomahawk server listening on port 5000");
 });
