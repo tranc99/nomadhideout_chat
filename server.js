@@ -10,8 +10,9 @@ var cache = {};
 
 // Handle 404s
 function send404(response) {
-  response.writeHead(404, {'Content-Type': 'text/plain'});
-  response.write('Error 404: resource not found :(');
+  response.writeHead(404, {'Content-Type': 'text/html'});
+  // response.write('Error 404: resource not found :(');
+  response.write('<h1>404 error...Welcome my son, welcome to the Machine!</h1>');
   response.end();
 }
 
@@ -48,3 +49,21 @@ function serveStatic(response, cache, absPath) {
     });
   }
 }
+
+// our HTTP server
+var server = http.createServer(function(request, response) {
+  var filePath = false;
+
+  if (request.url == '/') {
+    filePath = 'public/index.html';
+  } else {
+    filePath = 'public' + request.url;
+  }
+
+  var absPath = './' + filePath;
+  serveStatic(response, cache, absPath);
+});
+
+server.listen(3000, function() {
+  console.log("Tomahawk server listening on port 3000");
+});
