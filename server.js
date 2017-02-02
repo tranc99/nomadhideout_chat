@@ -6,6 +6,8 @@ var path = require('path');
 
 var mime = require('mime');
 
+var io = require('socket.io');
+
 var cache = {};
 
 // Handle 404s
@@ -70,6 +72,8 @@ var server = http.createServer(function(request, response) {
   var absPath = './' + filePath;
   serveStatic(response, cache, absPath);
 });
+
+io.listen(server);
 
 server.listen(5000, function() {
   console.log("Tomahawk server listening on port 5000");
